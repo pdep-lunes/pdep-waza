@@ -29,6 +29,10 @@ class Vehiculo {
 	
 	method perderCombustible(unaCantidad) {
 		const combustibleAPerder = capacidadTanque.min(unaCantidad)
+		if(combustible - combustibleAPerder < 0) {
+			self.error("combustible negativo")
+		}
+			
 		combustible -= combustibleAPerder
 	}
 	
