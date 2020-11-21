@@ -11,4 +11,8 @@ class Zona {
 	method cantidadDeUsuarios() {
 		return usuarios.size()
 	}
+	
+	method superaVelocidadPromedio(usuario) {
+		return usuario.vehiculo().superaVelocidadPromedio(velocidadMaxima)
+	}
 }

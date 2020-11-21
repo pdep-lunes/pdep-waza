@@ -40,6 +40,10 @@ class Vehiculo {
 		return PERDIDA_BASE_VEHICULO;
 	}
 	
+	method superaVelocidadPromedio(velocidad) {
+		return velocidadPromedio > velocidad
+	}
+	
 	method perdidaAdicional(unaDistancia)
 	
 	method esEcologico()
@@ -65,7 +69,7 @@ class Camioneta inherits Vehiculo {
 
 class Deportivo inherits Vehiculo {
 	
-	const VELOCIDAD_ECOLOGICA = 2
+	const VELOCIDAD_ECOLOGICA = 120
 	const PERDIDA_DEPORTIVA = 0.2
 	 
 	override method perdidaAdicional(unaDistancia) {
@@ -73,7 +77,7 @@ class Deportivo inherits Vehiculo {
 	}
 	
 	override method esEcologico() {
-		return velocidadPromedio < VELOCIDAD_ECOLOGICA 
+		return self.superaVelocidadPromedio(VELOCIDAD_ECOLOGICA) 
 	}
 }
 
