@@ -1,0 +1,109 @@
+@startuml
+class Usuario {
+  nombreDeUsuario
+  DNI
+  vehiculo
+  dinero
+
+
+  pagar(unaCantidad)
+  leAlcanzaLaPlata(unaCantidad)
+  pagarMultas()
+  esComplicado()
+  montoEnMultasNoPagas()
+  multasNoPagas()
+  recorrer(unaDistancia)
+  cargarNafta(unaCantidad)
+  excedeLimiteDeVelocidad(unLimite)
+  manejaEcologico()
+  salioEnDiaPermitido()
+  multar(unMonto)
+}
+
+Vehiculo <-u- Usuario
+Multa "*" <-u- Usuario : multas
+
+abstract class Vehiculo {
+  capacidadDeTanque
+  velocidadPromedio
+  combustible
+
+  cuantoGasta(unosKilometros)
+  consumoFijo()
+  {abstract} consumoVariable(unosKilometros)
+  disminuirCombustible(unaCantidad)
+  cuantoPuedeCargar(unaCantidad)
+  cargarCombustible(unaCantidad)
+  velocidadPromedio()
+}
+
+class Camioneta extends Vehiculo {
+  consumoFijo()
+  consumoVariable(unosKilometros)
+  esEcologico()
+}
+
+class Deportivo extends Vehiculo {
+  consumoVariable(_unosKilometros)
+  esEcologico()
+}
+
+class Familiar extends Vehiculo {
+  consumoVariable(_unosKilometros)
+  esEcologico()
+}
+
+class Multa {
+  costo
+  estaPaga
+
+  serPagadaPor(unUsuario)
+  estaPaga()
+}
+
+class Zona {
+  velocidadMaxima
+
+  cantidadDeUsuarios()
+  efectivizarControles()
+  velocidadMaxima()
+}
+
+Usuario "*" <-l- Zona : usuarios
+Control "*" <-u- Zona : controles
+
+abstract class Control {
+  efectivizarSobre(usuarios, zona)
+  controlar(unUsuario, unaZona)
+  {abstract} esInfringido(unUsuario, unaZona)
+  {abstract} montoDeMultaPorInfraccion()
+}
+
+object deVelocidad {
+  esInfringido(unUsuario, unaZona)
+  montoDeMultaPorInfraccion()
+}
+
+object ecologico {
+  esInfringido(unUsuario, unaZona)
+  montoDeMultaPorInfraccion()
+}
+
+object regulatorio {
+  esInfringido(unUsuario, unaZona)
+  montoDeMultaPorInfraccion()
+}
+
+Control <|-- deVelocidad
+Control <|-- ecologico
+Control <|-- regulatorio
+
+object waza {
+  pagarMultas()
+  zonaMasTransitada()
+  usuariosComplicados()
+}
+
+waza --> "*" Usuario : usuarios
+waza --> "*" Zona : zonas
+@enduml
